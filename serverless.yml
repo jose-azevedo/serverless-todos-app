@@ -21,17 +21,8 @@ custom:
 
 provider:
   name: aws
-  # runtime: nodejs14.x
-  # region: sa-east-1
 
 functions:
-  tester:
-    handler: src/functions/test.handler
-    events:
-      - http:
-          path: /todo
-          method: GET
-          cors: true
   postToDo:
     handler: src/functions/postToDo.handler
     events:
@@ -46,11 +37,6 @@ functions:
           path: /todo/{id}
           method: GET
           cors: true
-    # iamRoleStatements:
-    # - Effect: Allow
-    #   Action:
-    #     - dynamo:PutItem
-    #   Resource: 'arn:aws:dynamodb:${self.provider.region}:*:table/users_todos'
         
 resources:
   Resources:
@@ -67,19 +53,3 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-
-# resources:
-#   Resources:
-#     dbCertificateUsers:
-#       Type: AWS::DynamoDB::Table
-#       Properties:
-#         TableName: users_certificates
-#         ProvisionedThroughput:
-#           ReadCapacityUnits: 5
-#           WriteCapacityUnits: 5
-#         AttributeDefinitions:
-#           - AttributeName: id
-#             AttributeType: S
-#         KeySchema:
-#           - AttributeName: id
-#             KeyType: HASH
